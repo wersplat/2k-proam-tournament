@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Association: Battle for $52K</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="assets/images/logo192.png">
-    <link rel="manifest" href="assets/manifest.json">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../assets/images/logo192.png">
+    <link rel="manifest" href="../assets/manifest.json">
     <meta name="description" content="The Association: Battle for $52K - Compete for the $52,000 prize pool in NBA 2K's premier franchise league">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -53,109 +53,95 @@
     <main>
         <!-- Content will be injected here -->
         
-            <section class="hero">
+            <section class="page-header">
                 <div class="container">
-                    <h1>Welcome to The Association: Battle for $52K</h1>
-                    <p>Compete against the best players in NBA 2K and prove your skills on the virtual court.</p>
-                    <div class="cta-buttons">
-                        <a href="#upcoming-tournaments" class="btn btn-primary">View Tournaments</a>
-                        <a href="#how-it-works" class="btn btn-secondary">How It Works</a>
-                    </div>
+                    <h1>Global Rankings</h1>
+                    <p>See where you stand against the best 2K players in the world.</p>
                 </div>
             </section>
             
-            <section id="upcoming-tournaments" class="section">
+            <section class="section">
                 <div class="container">
-                    <h2>Upcoming Tournaments</h2>
-                    <div class="tournaments-grid">
-                        <div class="tournament-card">
-                            <div class="tournament-header">
-                                <h3>Summer Showdown</h3>
-                                <span class="tournament-date">July 15, 2024</span>
-                            </div>
-                            <div class="tournament-details">
-                                <div class="detail">
-                                    <i class="fas fa-trophy"></i>
-                                    <span>$5,000 Prize Pool</span>
-                                </div>
-                                <div class="detail">
-                                    <i class="fas fa-users"></i>
-                                    <span>32 Teams</span>
-                                </div>
-                                <div class="detail">
-                                    <i class="fas fa-gamepad"></i>
-                                    <span>PS5 / XSX / PC</span>
-                                </div>
-                            </div>
-                            <a href="#register" class="btn btn-block">Register Now</a>
+                    <div class="ranking-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search players...">
                         </div>
-                        <!-- More tournament cards... -->
+                        <select class="form-select">
+                            <option>All Platforms</option>
+                            <option>PlayStation 5</option>
+                            <option>Xbox Series X</option>
+                            <option>PC</option>
+                        </select>
                     </div>
-                </div>
-            </section>
-            
-            <section id="how-it-works" class="section bg-light">
-                <div class="container">
-                    <h2>How It Works</h2>
-                    <div class="features-grid">
-                        <div class="feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                            <h3>Register</h3>
-                            <p>Create an account and register for upcoming tournaments.</p>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h3>Build Your Team</h3>
-                            <p>Assemble your dream team within the salary cap.</p>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <h3>Compete</h3>
-                            <p>Play against other teams and climb the leaderboards.</p>
+                    
+                    <div class="ranking-table-container">
+                        <table class="ranking-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th>Wins</th>
+                                    <th>Losses</th>
+                                    <th>Win %</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="player-cell">
+                                        <img src="https://via.placeholder.com/40" alt="Player" class="player-avatar">
+                                        <span>DribbleKing23</span>
+                                    </td>
+                                    <td>Lakers</td>
+                                    <td>42</td>
+                                    <td>8</td>
+                                    <td>84%</td>
+                                    <td>1250</td>
+                                </tr>
+                                <!-- More ranking rows... -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="ranking-notes">
+                            <p><strong>Note:</strong> Rankings are updated in real-time. Last updated: <span id="last-updated">Just now</span></p>
+                            <p>Points are calculated based on win/loss record, strength of schedule, and performance metrics.</p>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <section id="register" class="section">
+            <section id="faq" class="section bg-light">
                 <div class="container">
-                    <h2>Register Now</h2>
-                    <p>Join the 2K Pro-Am Tournament today and start your journey to becoming a champion!</p>
-                    <div class="register-form">
-                        <form>
-                            <div class="form-group">
-                                <label for="team-name">Team Name</label>
-                                <input type="text" id="team-name" class="form-control" placeholder="Enter your team name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="platform">Gaming Platform</label>
-                                <select id="platform" class="form-control" required>
-                                    <option value="">Select platform</option>
-                                    <option value="ps5">PlayStation 5</option>
-                                    <option value="xsx">Xbox Series X|S</option>
-                                    <option value="pc">PC</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit Registration</button>
-                        </form>
+                    <h2>Rankings FAQ</h2>
+                    <div class="faq-item">
+                        <h3>How are the rankings calculated?</h3>
+                        <p>Rankings are based on a combination of win/loss record, strength of schedule, and performance metrics. More weight is given to recent performance.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How often are the rankings updated?</h3>
+                        <p>Rankings are updated in real-time as game results are reported. The leaderboard refreshes automatically.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How can I improve my ranking?</h3>
+                        <p>Winning games against highly ranked opponents will improve your ranking the most. Consistent performance is also important.</p>
                     </div>
                 </div>
             </section>
             
-            <section id="current" class="visually-hidden"></section>
-            <section id="upcoming" class="visually-hidden"></section>
-            <section id="past" class="visually-hidden"></section>
-            <section id="contact" class="visually-hidden"></section>
+            <section id="contact" class="section">
+                <div class="container">
+                    <h2>Rankings Support</h2>
+                    <p>Questions about the ranking system or notice an issue? Contact our support team.</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> rankings@2kproam.com</p>
+                        <p><i class="fas fa-phone"></i> (555) 123-7890</p>
+                        <p><i class="fas fa-clock"></i> Support Hours: Mon-Fri, 10AM-6PM EST</p>
+                    </div>
+                </div>
+            </section>
         
     </main>
 

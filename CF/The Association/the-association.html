@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Association: Battle for $52K</title>
-    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/assets/images/logo192.png">
-    <link rel="manifest" href="/assets/manifest.json">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="logo192.png">
+    <link rel="manifest" href="manifest.json">
     <meta name="description" content="The Association: Battle for $52K - Compete for the $52,000 prize pool in NBA 2K's premier franchise league">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,23 +19,23 @@
         <div class="container">
             <nav class="nav">
                 <div class="logo">
-                    <a href="index.html">The Association</a>
+                    <a href="../index.html">The Association</a>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="index.html" class="{{ 'active' if page == 'index' else '' }}">Tournaments</a></li>
-                    <li><a href="schedule.html" class="{{ 'active' if page == 'schedule' else '' }}">Schedule</a></li>
-                    <li><a href="global-ranking.html" class="{{ 'active' if page == 'global-ranking' else '' }}">Global Ranking</a></li>
+                    <li><a href="../index.html" class="{{ 'active' if page == 'index' else '' }}">Tournaments</a></li>
+                    <li><a href="../schedule.html" class="{{ 'active' if page == 'schedule' else '' }}">Schedule</a></li>
+                    <li><a href="../global-ranking.html" class="{{ 'active' if page == 'global-ranking' else '' }}">Global Ranking</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">The Association <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-menu">
-                            <a href="the-association.html">The Association</a>
-                            <a href="standings.html">Standings</a>
-                            <a href="player-tracker.html">Player Tracker</a>
-                            <a href="salary-structure.html">Salary Structure</a>
-                            <a href="rules.html">Rules</a>
+                            <a href="../the-association.html">The Association</a>
+                            <a href="../standings.html">Standings</a>
+                            <a href="../player-tracker.html">Player Tracker</a>
+                            <a href="../salary-structure.html">Salary Structure</a>
+                            <a href="../rules.html">Rules</a>
                         </div>
                     </li>
-                    <li><a href="handbook.html" class="{{ 'active' if page == 'handbook' else '' }}">Handbook</a></li>
+                    <li><a href="../handbook.html" class="{{ 'active' if page == 'handbook' else '' }}">Handbook</a></li>
                 </ul>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
@@ -55,59 +55,54 @@
         
             <section class="page-header">
                 <div class="container">
-                    <h1>Global Rankings</h1>
-                    <p>See where you stand against the best 2K players in the world.</p>
+                    <h1>Franchise League</h1>
+                    <p>Manage your franchise and compete in the ultimate 2K Pro-Am experience.</p>
                 </div>
             </section>
             
             <section class="section">
                 <div class="container">
-                    <div class="ranking-filters">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Search players...">
+                    <div class="franchise-overview">
+                        <div class="franchise-stats">
+                            <div class="stat-card">
+                                <h3>Season Progress</h3>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 45%"></div>
+                                    <span>45% Complete</span>
+                                </div>
+                                <div class="stat-details">
+                                    <div class="stat">
+                                        <span class="stat-value">24</span>
+                                        <span class="stat-label">Games Played</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-value">16-8</span>
+                                        <span class="stat-label">Record</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-value">3rd</span>
+                                        <span class="stat-label">In Division</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- More stat cards... -->
                         </div>
-                        <select class="form-select">
-                            <option>All Platforms</option>
-                            <option>PlayStation 5</option>
-                            <option>Xbox Series X</option>
-                            <option>PC</option>
-                        </select>
-                    </div>
-                    
-                    <div class="ranking-table-container">
-                        <table class="ranking-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Player</th>
-                                    <th>Team</th>
-                                    <th>Wins</th>
-                                    <th>Losses</th>
-                                    <th>Win %</th>
-                                    <th>Points</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="player-cell">
-                                        <img src="https://via.placeholder.com/40" alt="Player" class="player-avatar">
-                                        <span>DribbleKing23</span>
-                                    </td>
-                                    <td>Lakers</td>
-                                    <td>42</td>
-                                    <td>8</td>
-                                    <td>84%</td>
-                                    <td>1250</td>
-                                </tr>
-                                <!-- More ranking rows... -->
-                            </tbody>
-                        </table>
                         
-                        <div class="ranking-notes">
-                            <p><strong>Note:</strong> Rankings are updated in real-time. Last updated: <span id="last-updated">Just now</span></p>
-                            <p>Points are calculated based on win/loss record, strength of schedule, and performance metrics.</p>
+                        <div class="franchise-updates">
+                            <h2>Recent Activity</h2>
+                            <div class="updates-list">
+                                <div class="update">
+                                    <div class="update-icon">
+                                        <i class="fas fa-basketball-ball"></i>
+                                    </div>
+                                    <div class="update-content">
+                                        <h4>Game Completed</h4>
+                                        <p>Defeated Lakers 105-98</p>
+                                        <span class="update-time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <!-- More updates... -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,30 +110,30 @@
             
             <section id="faq" class="section bg-light">
                 <div class="container">
-                    <h2>Rankings FAQ</h2>
+                    <h2>Franchise League FAQ</h2>
                     <div class="faq-item">
-                        <h3>How are the rankings calculated?</h3>
-                        <p>Rankings are based on a combination of win/loss record, strength of schedule, and performance metrics. More weight is given to recent performance.</p>
+                        <h3>How do I join the Franchise League?</h3>
+                        <p>You can join the Franchise League by creating a team and registering for the upcoming season through your dashboard.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>How often are the rankings updated?</h3>
-                        <p>Rankings are updated in real-time as game results are reported. The leaderboard refreshes automatically.</p>
+                        <h3>What are the season lengths?</h3>
+                        <p>Each season runs for 8 weeks, with playoffs following for qualifying teams.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>How can I improve my ranking?</h3>
-                        <p>Winning games against highly ranked opponents will improve your ranking the most. Consistent performance is also important.</p>
+                        <h3>Can I make roster changes during the season?</h3>
+                        <p>Yes, you can make roster changes during designated trade and free agency periods throughout the season.</p>
                     </div>
                 </div>
             </section>
             
             <section id="contact" class="section">
                 <div class="container">
-                    <h2>Rankings Support</h2>
-                    <p>Questions about the ranking system or notice an issue? Contact our support team.</p>
+                    <h2>Franchise League Support</h2>
+                    <p>Need help with your franchise? Our support team is here to assist you.</p>
                     <div class="contact-info">
-                        <p><i class="fas fa-envelope"></i> rankings@2kproam.com</p>
-                        <p><i class="fas fa-phone"></i> (555) 123-7890</p>
-                        <p><i class="fas fa-clock"></i> Support Hours: Mon-Fri, 10AM-6PM EST</p>
+                        <p><i class="fas fa-envelope"></i> franchise@2kproam.com</p>
+                        <p><i class="fas fa-phone"></i> (555) 555-5678</p>
+                        <p><i class="fas fa-clock"></i> Support Hours: Mon-Fri, 10AM-8PM EST</p>
                     </div>
                 </div>
             </section>
