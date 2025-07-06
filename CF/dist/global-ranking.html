@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Association: Battle for $52K</title>
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/assets/images/logo192.png">
+    <link rel="manifest" href="/assets/manifest.json">
+    <meta name="description" content="The Association: Battle for $52K - Compete for the $52,000 prize pool in NBA 2K's premier franchise league">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">The Association</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="{{ 'active' if page == 'index' else '' }}">Tournaments</a></li>
+                    <li><a href="schedule.html" class="{{ 'active' if page == 'schedule' else '' }}">Schedule</a></li>
+                    <li><a href="global-ranking.html" class="{{ 'active' if page == 'global-ranking' else '' }}">Global Ranking</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">The Association <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="the-association.html">The Association</a>
+                            <a href="standings.html">Standings</a>
+                            <a href="player-tracker.html">Player Tracker</a>
+                            <a href="salary-structure.html">Salary Structure</a>
+                            <a href="rules.html">Rules</a>
+                        </div>
+                    </li>
+                    <li><a href="handbook.html" class="{{ 'active' if page == 'handbook' else '' }}">Handbook</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Anchor sections for common links -->
+    <div id="current" class="visually-hidden"></div>
+    <div id="upcoming" class="visually-hidden"></div>
+    <div id="past" class="visually-hidden"></div>
+    <div id="contact" class="visually-hidden"></div>
+
+    <main>
+        <!-- Content will be injected here -->
+        
+            <section class="page-header">
+                <div class="container">
+                    <h1>Global Rankings</h1>
+                    <p>See where you stand against the best 2K players in the world.</p>
+                </div>
+            </section>
+            
+            <section class="section">
+                <div class="container">
+                    <div class="ranking-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search players...">
+                        </div>
+                        <select class="form-select">
+                            <option>All Platforms</option>
+                            <option>PlayStation 5</option>
+                            <option>Xbox Series X</option>
+                            <option>PC</option>
+                        </select>
+                    </div>
+                    
+                    <div class="ranking-table-container">
+                        <table class="ranking-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th>Wins</th>
+                                    <th>Losses</th>
+                                    <th>Win %</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="player-cell">
+                                        <img src="https://via.placeholder.com/40" alt="Player" class="player-avatar">
+                                        <span>DribbleKing23</span>
+                                    </td>
+                                    <td>Lakers</td>
+                                    <td>42</td>
+                                    <td>8</td>
+                                    <td>84%</td>
+                                    <td>1250</td>
+                                </tr>
+                                <!-- More ranking rows... -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="ranking-notes">
+                            <p><strong>Note:</strong> Rankings are updated in real-time. Last updated: <span id="last-updated">Just now</span></p>
+                            <p>Points are calculated based on win/loss record, strength of schedule, and performance metrics.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="faq" class="section bg-light">
+                <div class="container">
+                    <h2>Rankings FAQ</h2>
+                    <div class="faq-item">
+                        <h3>How are the rankings calculated?</h3>
+                        <p>Rankings are based on a combination of win/loss record, strength of schedule, and performance metrics. More weight is given to recent performance.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How often are the rankings updated?</h3>
+                        <p>Rankings are updated in real-time as game results are reported. The leaderboard refreshes automatically.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How can I improve my ranking?</h3>
+                        <p>Winning games against highly ranked opponents will improve your ranking the most. Consistent performance is also important.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact" class="section">
+                <div class="container">
+                    <h2>Rankings Support</h2>
+                    <p>Questions about the ranking system or notice an issue? Contact our support team.</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> rankings@2kproam.com</p>
+                        <p><i class="fas fa-phone"></i> (555) 123-7890</p>
+                        <p><i class="fas fa-clock"></i> Support Hours: Mon-Fri, 10AM-6PM EST</p>
+                    </div>
+                </div>
+            </section>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Association: Battle for $52K</h3>
+                    <p>Compete for the $52,000 prize pool in NBA 2K's premier franchise league.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="rules.html">Rules</a></li>
+                        <li><a href="handbook.html">Handbook</a></li>
+                        <li><a href="handbook.html#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div id="contact" class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@2kproam.com</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                </div>
+                <p>&copy; 2024 The Association: Battle for $52K. All rights reserved. This is an independent event not affiliated with 2K Sports or the NBA.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

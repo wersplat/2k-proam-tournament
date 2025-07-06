@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Association: Battle for $52K</title>
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/assets/images/logo192.png">
+    <link rel="manifest" href="/assets/manifest.json">
+    <meta name="description" content="The Association: Battle for $52K - Compete for the $52,000 prize pool in NBA 2K's premier franchise league">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <a href="index.html">The Association</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="{{ 'active' if page == 'index' else '' }}">Tournaments</a></li>
+                    <li><a href="schedule.html" class="{{ 'active' if page == 'schedule' else '' }}">Schedule</a></li>
+                    <li><a href="global-ranking.html" class="{{ 'active' if page == 'global-ranking' else '' }}">Global Ranking</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">The Association <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="the-association.html">The Association</a>
+                            <a href="standings.html">Standings</a>
+                            <a href="player-tracker.html">Player Tracker</a>
+                            <a href="salary-structure.html">Salary Structure</a>
+                            <a href="rules.html">Rules</a>
+                        </div>
+                    </li>
+                    <li><a href="handbook.html" class="{{ 'active' if page == 'handbook' else '' }}">Handbook</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Anchor sections for common links -->
+    <div id="current" class="visually-hidden"></div>
+    <div id="upcoming" class="visually-hidden"></div>
+    <div id="past" class="visually-hidden"></div>
+    <div id="contact" class="visually-hidden"></div>
+
+    <main>
+        <!-- Content will be injected here -->
+        
+            <section class="handbook">
+                <div class="container">
+                    <h1>Player Handbook</h1>
+                    <p>Everything you need to know about participating in The Association: Battle for $52K.</p>
+                    
+                    <div class="handbook-nav">
+                        <h3>Table of Contents</h3>
+                        <ul>
+                            <li><a href="#welcome">Welcome</a></li>
+                            <li><a href="#getting-started">Getting Started</a></li>
+                            <li><a href="#tournament-structure">Tournament Structure</a></li>
+                            <li><a href="#team-management">Team Management</a></li>
+                            <li><a href="#player-development">Player Development</a></li>
+                            <li><a href="#faq">Frequently Asked Questions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="handbook-content">
+                        <section id="welcome">
+                            <h2>Welcome to The Association</h2>
+                            <p>Welcome to The Association: Battle for $52K! We're excited to have you join our competitive gaming community.</p>
+                            <p>This handbook will guide you through everything you need to know to participate in and enjoy our tournaments.</p>
+                            <p>Whether you're a seasoned pro or new to competitive 2K, we have something for everyone.</p>
+                        </section>
+                        
+                        <section id="getting-started">
+                            <h2>Getting Started</h2>
+                            <p>Follow these steps to begin your journey in The Association:</p>
+                            <ol>
+                                <li>Create an account on our platform</li>
+                                <li>Complete your player profile</li>
+                                <li>Join or create a team</li>
+                                <li>Register for upcoming tournaments</li>
+                                <li>Familiarize yourself with the rules and schedule</li>
+                            </ol>
+                        </section>
+                        
+                        <section id="tournament-structure">
+                            <h2>Tournament Structure</h2>
+                            <p>Our tournaments are organized into several divisions based on skill level:</p>
+                            <ul>
+                                <li><strong>Rookie Division:</strong> For new players and those still learning the game</li>
+                                <li><strong>Pro Division:</strong> For experienced players looking for competition</li>
+                                <li><strong>Elite Division:</strong> For the most skilled competitors</li>
+                            </ul>
+                            <p>Each tournament consists of group stages followed by single-elimination playoffs.</p>
+                        </section>
+                        
+                        <section id="team-management">
+                            <h2>Team Management</h2>
+                            <p>Effective team management is key to success in The Association:</p>
+                            <ul>
+                                <li>Recruit players that complement your playstyle</li>
+                                <li>Develop team chemistry through regular practice</li>
+                                <li>Assign roles and positions strategically</li>
+                                <li>Analyze game footage to identify areas for improvement</li>
+                            </ul>
+                        </section>
+                        
+                        <section id="player-development">
+                            <h2>Player Development</h2>
+                            <p>Improve your skills with these development tips:</p>
+                            <ul>
+                                <li>Practice regularly in both MyCareer and Pro-Am modes</li>
+                                <li>Focus on mastering your player's archetype</li>
+                                <li>Watch and learn from top players</li>
+                                <li>Experiment with different playstyles to find what works best for you</li>
+                            </ul>
+                        </section>
+                        
+                        <section id="faq">
+                            <h2>Frequently Asked Questions</h2>
+                            
+                            <div class="faq-item">
+                                <h3>How do I register for a tournament?</h3>
+                                <p>You can register for tournaments through our website or mobile app. Navigate to the Tournaments section and follow the registration prompts.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h3>What are the system requirements?</h3>
+                                <p>You'll need a compatible gaming console or PC with the latest version of NBA 2K installed, along with a stable internet connection.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h3>How are teams matched up in tournaments?</h3>
+                                <p>Teams are matched based on skill level, win/loss record, and division placement to ensure fair competition.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h3>What happens if there's a disconnection during a match?</h3>
+                                <p>In case of disconnection, the game may be replayed if it occurs within the first quarter. Otherwise, the current score stands.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h3>How do I report a problem or dispute?</h3>
+                                <p>Use the support section of our website to submit a ticket with details of your issue. Include any relevant screenshots or video evidence.</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Association: Battle for $52K</h3>
+                    <p>Compete for the $52,000 prize pool in NBA 2K's premier franchise league.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="rules.html">Rules</a></li>
+                        <li><a href="handbook.html">Handbook</a></li>
+                        <li><a href="handbook.html#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div id="contact" class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@2kproam.com</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                </div>
+                <p>&copy; 2024 The Association: Battle for $52K. All rights reserved. This is an independent event not affiliated with 2K Sports or the NBA.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
