@@ -1,0 +1,10 @@
+name = "2k-proam-tournament"
+compatibility_date = "2025-07-07"
+
+[site]
+bucket = "./build"
+entry-point = "workers-site"
+
+[build]
+command = "npm run build"
+publish = "./build"
