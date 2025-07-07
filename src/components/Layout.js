@@ -365,7 +365,7 @@ const Layout = ({ children }) => {
                   borderRadius: 1
                 }}
               >
-                2K Pro-Am Series
+                The Association: Battle for $52K
               </Typography>
               
               {!isMobile && (

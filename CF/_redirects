@@ -1,5 +1,0 @@
-# Handle client-side routing - return index.html for all other paths
-/* /index.html 200
-
-# Custom 404 page
-/* /404.html 404

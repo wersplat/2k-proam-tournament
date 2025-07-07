@@ -86,7 +86,7 @@ const Footer = () => {
                 <SportsBasketball sx={{ color: 'white', fontSize: 28 }} />
               </Box>
               <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
-                2K Pro-Am Series
+                The Association: Battle for $52K
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ mb: 2, opacity: 0.8 }}>
@@ -182,7 +182,7 @@ const Footer = () => {
 
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="body2" sx={{ opacity: 0.7, textAlign: isMobile ? 'center' : 'left', mb: isMobile ? 2 : 0 }}>
-            © {new Date().getFullYear()} 2K Pro-Am Series. All rights reserved.
+            © {new Date().getFullYear()} The Association: Battle for $52K. All rights reserved.
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-end' }}>
             <Link 

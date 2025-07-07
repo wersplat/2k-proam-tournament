@@ -14,9 +14,10 @@ import {
   ListItemIcon, 
   ListItemText,
   useTheme,
-  Stack,
   CardActions,
-  useMediaQuery
+  useMediaQuery,
+  Grow,
+  Paper
 } from '@mui/material';
 import { 
   EmojiEvents, 
@@ -27,117 +28,42 @@ import {
   People,
   SportsEsports,
   Person,
-  Description,
-  Leaderboard,
-  GroupAdd,
-  Forum,
-  CalendarMonth,
   MonetizationOn
 } from '@mui/icons-material';
-import { Grow, Paper } from '@mui/material';
 
 const tournamentRules = [
   { text: 'All matches are best of 3 until finals', icon: <AccessTime /> },
   { text: 'Finals are best of 5', icon: <EmojiEvents /> },
   { text: 'Must check in 30 minutes before tournament start', icon: <LockClock /> },
   { text: 'All players must be registered on the team roster', icon: <People /> },
-  { text: 'Standard 2K Pro-Am rules apply', icon: <SportsEsports /> },
+  { text: 'Standard The Association rules apply', icon: <SportsEsports /> },
   { text: 'No player may compete on multiple teams', icon: <Person /> }
 ];
 
-const Tournament = () => {
+// Helper function to get status chip props
+const getStatusChipProps = (status) => {
+  if (!status) return { label: 'Unknown', color: 'default' };
+  
+  const statusLower = status.toLowerCase();
+  if (statusLower.includes('open')) {
+    return { label: status, color: 'success' };
+  }
+  if (statusLower.includes('upcoming') || statusLower.includes('soon')) {
+    return { label: status, color: 'info' };
+  }
+  if (statusLower.includes('complete') || statusLower.includes('ended')) {
+    return { label: status, color: 'secondary' };
+  }
+  return { label: status };
+};
+
+// TournamentCard component
+const TournamentCard = ({ tournament }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const upcomingTournaments = [
-    {
-      id: 1,
-      name: 'October Open',
-      date: 'October 3-5, 2025',
-      prize: 'TBD',
-      status: 'Registration Open',
-      type: 'Open',
-      format: '5v5',
-      entry: 'Free',
-      description: 'Kickoff tournament for the 2025-2026 season. Open to all teams.',
-      image: '/october-open.jpg',
-      featured: true,
-      region: 'Global',
-      registered: '24/32',
-      deadline: 'Oct 1, 2025'
-    },
-    {
-      id: 2,
-      name: 'November Open',
-      date: 'November 14-16, 2025',
-      prize: 'TBD',
-      status: 'Upcoming',
-      type: 'Open',
-      format: '5v5',
-      entry: 'Free for S1 Top 2',
-      description: 'Second tournament of the season. Franchise Season 1 top 2 teams get free entry.',
-      image: '/november-open.jpg',
-      featured: true,
-      region: 'Global',
-      registered: '8/32',
-      deadline: 'Nov 12, 2025'
-    },
-    {
-      id: 3,
-      name: 'Holiday Festival',
-      date: 'December 13-15, 2025',
-      prize: 'TBD',
-      status: 'Upcoming',
-      type: 'Themed',
-      format: '5v5',
-      entry: 'Free for S2 Top 2',
-      description: 'Special holiday-themed tournament with festive rewards and special in-game items.',
-      image: '/holiday-festival.jpg',
-      region: 'Global',
-      registered: 'Coming Soon',
-      deadline: 'Dec 10, 2025'
-    },
-  ];
-
-  // Quick links for the sidebar
-  const quickLinks = [
-    { text: 'Tournament Rules', icon: <Description />, url: '/rules' },
-    { text: 'Global Rankings', icon: <Leaderboard />, url: '/rankings' },
-    { text: 'Team Registration', icon: <GroupAdd />, url: '/register' },
-    { text: 'Discord Community', icon: <Forum />, url: 'https://discord.gg/2kproam' }
-  ];
-
-  const pastTournaments = [
-    {
-      id: 4,
-      name: 'Pre-Season Showcase',
-      date: 'September 20-22, 2025',
-      winner: 'TBD',
-      prize: 'Bragging Rights',
-      status: 'Completed',
-      image: '/preseason-showcase.jpg',
-      featured: false,
-      region: 'Global',
-      participants: '16 teams',
-      champion: 'TBD'
-    }
-  ];
-
-  // Status chip styling
-  const getStatusChipProps = (status) => {
-    switch (status.toLowerCase()) {
-      case 'registration open':
-        return { label: status, color: 'success' };
-      case 'upcoming':
-        return { label: status, color: 'info' };
-      case 'completed':
-        return { label: status, color: 'secondary' };
-      default:
-        return { label: status };
-    }
-  };
-
-  const getTournamentCard = (tournament) => (
+  // Keep useMediaQuery hook for future responsive features
+  useMediaQuery(theme.breakpoints.down('md'));
+  
+  return (
     <Card 
       elevation={2} 
       sx={{ 
@@ -147,14 +73,18 @@ const Tournament = () => {
         '&:hover': {
           transform: 'translateY(-4px)',
           boxShadow: theme.shadows[6]
-        }
+        },
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
       <Box sx={{ 
         display: 'flex', 
         flexDirection: { xs: 'column', lg: 'row' },
-        height: '100%'
+        flexGrow: 1
       }}>
+        {/* Tournament Image */}
         <Box sx={{ 
           width: { xs: '100%', lg: '35%' }, 
           height: { xs: '200px', lg: 'auto' },
@@ -166,23 +96,21 @@ const Tournament = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
             zIndex: 1
           }
         }}>
           <CardMedia
             component="img"
-            height="100%"
-            width="100%"
-            image={tournament.image}
+            image={tournament.image || '/images/tournament-default.jpg'}
             alt={tournament.name}
             sx={{ 
-              objectFit: 'cover',
-              position: 'relative',
-              zIndex: 0
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
             }}
           />
-          <Box sx={{
+          <Box sx={{ 
             position: 'absolute',
             bottom: 16,
             left: 16,
@@ -190,40 +118,36 @@ const Tournament = () => {
             color: 'white'
           }}>
             <Chip 
-              label={tournament.status} 
-              color={tournament.status === 'Registration Open' ? 'success' : 'default'}
+              label={tournament.status}
+              color={getStatusChipProps(tournament.status).color}
               size="small"
               sx={{ 
                 mb: 1,
-                fontWeight: 'bold',
-                backdropFilter: 'blur(4px)',
-                bgcolor: 'rgba(0,0,0,0.4)'
+                color: 'white',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontSize: '0.7rem',
+                '& .MuiChip-label': {
+                  px: 1
+                }
               }}
             />
-            <Typography variant="h5" component="h3" sx={{ 
-              fontWeight: 'bold',
+            <Typography variant="h6" component="h3" sx={{ 
+              fontWeight: 700,
               textShadow: '0 2px 4px rgba(0,0,0,0.5)'
             }}>
               {tournament.name}
             </Typography>
-            <Typography variant="body2" sx={{ 
-              opacity: 0.9,
-              display: 'flex',
-              alignItems: 'center',
-              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-            }}>
-              <CalendarMonth fontSize="small" sx={{ mr: 0.5 }} />
-              {tournament.date}
-            </Typography>
           </Box>
         </Box>
-        
+
+        {/* Tournament Details */}
         <Box sx={{ 
           p: 3, 
           width: { xs: '100%', lg: '65%' },
           display: 'flex',
-          flexDirection: 'column',
-          height: '100%'
+          flexDirection: 'column'
         }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="body1" sx={{ mb: 2, color: 'text.secondary' }}>
@@ -237,15 +161,36 @@ const Tournament = () => {
                   sx={{ 
                     p: 1.5, 
                     textAlign: 'center',
+                    bgcolor: 'action.hover',
                     borderRadius: 2,
-                    bgcolor: 'rgba(25, 118, 210, 0.05)'
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
                   }}
                 >
-                  <MonetizationOn color="primary" sx={{ mb: 0.5 }} />
-                  <Typography variant="caption" display="block" color="text.secondary">
-                    Prize Pool
+                  <Typography variant="caption" color="text.secondary">Date</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {tournament.date}
                   </Typography>
-                  <Typography variant="subtitle2" fontWeight="bold">
+                </Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper 
+                  elevation={0} 
+                  sx={{ 
+                    p: 1.5, 
+                    textAlign: 'center',
+                    bgcolor: 'action.hover',
+                    borderRadius: 2,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <Typography variant="caption" color="text.secondary">Prize</Typography>
+                  <Typography variant="subtitle2" fontWeight={600} color="primary">
                     {tournament.prize}
                   </Typography>
                 </Paper>
@@ -256,16 +201,17 @@ const Tournament = () => {
                   sx={{ 
                     p: 1.5, 
                     textAlign: 'center',
+                    bgcolor: 'action.hover',
                     borderRadius: 2,
-                    bgcolor: 'rgba(25, 118, 210, 0.05)'
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
                   }}
                 >
-                  <People color="primary" sx={{ mb: 0.5 }} />
-                  <Typography variant="caption" display="block" color="text.secondary">
-                    Format
-                  </Typography>
-                  <Typography variant="subtitle2" fontWeight="bold">
-                    {tournament.format}
+                  <Typography variant="caption" color="text.secondary">Teams</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {tournament.teams}
                   </Typography>
                 </Paper>
               </Grid>
@@ -275,24 +221,37 @@ const Tournament = () => {
                   sx={{ 
                     p: 1.5, 
                     textAlign: 'center',
+                    bgcolor: 'action.hover',
                     borderRadius: 2,
-                    bgcolor: 'rgba(25, 118, 210, 0.05)'
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
                   }}
                 >
-                  <AccessTime color="primary" sx={{ mb: 0.5 }} />
-                  <Typography variant="caption" display="block" color="text.secondary">
-                    Deadline
-                  </Typography>
-                  <Typography variant="subtitle2" fontWeight="bold">
-                    {tournament.deadline}
+                  <Typography variant="caption" color="text.secondary">Format</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {tournament.format || '5v5'}
                   </Typography>
                 </Paper>
               </Grid>
             </Grid>
           </Box>
-          <CardActions sx={{ mt: 'auto', px: 2, pb: 2 }}>
+
+          <CardActions sx={{ 
+            mt: 'auto', 
+            px: 0,
+            '& .MuiButton-root': {
+              width: '100%',
+              py: 1.5,
+              borderRadius: 2,
+              fontWeight: 600,
+              textTransform: 'none',
+              fontSize: '1rem'
+            }
+          }}>
             <Button 
-              size="small" 
+              variant="contained" 
               color="primary"
               endIcon={<ArrowForward />}
               fullWidth
@@ -304,9 +263,192 @@ const Tournament = () => {
       </Box>
     </Card>
   );
+};
+
+// Main Tournament Component
+const Tournament = () => {
+  const theme = useTheme();
+  // Keep useMediaQuery hook for future responsive features
+  useMediaQuery(theme.breakpoints.down('md'));
+
+  // Tournament data - Updated to match the 2025-2026 schedule
+  const upcomingTournaments = [
+    {
+      id: 1,
+      name: 'October Open',
+      date: 'October 3-5, 2025',
+      time: '7:00 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Registration Open',
+      type: 'Open',
+      format: '5v5',
+      description: 'Kick off the 2025-2026 season with the October Open! Compete in the first tournament of the season and set the tone for the year.',
+      image: '/images/october-open.jpg',
+      featured: true,
+      notes: 'Preseason Oct 1-6. No expansion allowed yet.'
+    },
+    {
+      id: 2,
+      name: 'November Open',
+      date: 'November 14-16, 2025',
+      time: '8:00 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Second tournament of the season. Season 1 Top 2 teams get free entry.',
+      image: '/images/november-open.jpg',
+      notes: 'S1 Top 2 get free entry. Minimum 2-team expansion allowed.'
+    },
+    {
+      id: 3,
+      name: 'Holiday Festival',
+      date: 'December 13-15, 2025',
+      time: '7:30 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Special holiday tournament with a condensed schedule. Season 2 Top 2 teams get free entry.',
+      image: '/images/holiday-festival.jpg',
+      notes: 'Condensed season due to holidays.'
+    },
+    {
+      id: 4,
+      name: 'January Open',
+      date: 'January 9-11, 2026',
+      time: '8:00 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Start the new year with competitive play. Season 3 Top 2 teams get free entry.',
+      image: '/images/january-open.jpg',
+      notes: 'Full season resumes after holidays.'
+    },
+    {
+      id: 5,
+      name: 'February Open',
+      date: 'February 13-15, 2026',
+      time: '8:00 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Mid-season tournament with final expansion window.',
+      image: '/images/february-open.jpg',
+      notes: 'Final expansion window for the season.'
+    },
+    {
+      id: 6,
+      name: 'March Madness',
+      date: 'March 28-30, 2026',
+      time: '7:30 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Season finale tournament before league locks.',
+      image: '/images/march-madness.jpg',
+      notes: 'League locks after this tournament.'
+    },
+    {
+      id: 7,
+      name: 'April Open',
+      date: 'April 10-12, 2026',
+      time: '7:00 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Open format tournament for all teams.',
+      image: '/images/april-open.jpg',
+      notes: 'Open format for all teams.'
+    },
+    {
+      id: 8,
+      name: 'May Open',
+      date: 'May 15-17, 2026',
+      time: '8:00 PM EST',
+      prize: 'TBD',
+      teams: '0/64',
+      status: 'Upcoming',
+      type: 'Open',
+      format: '5v5',
+      description: 'Final online open tournament of the season.',
+      image: '/images/may-open.jpg',
+      notes: 'Last chance to qualify for LAN events.'
+    },
+    {
+      id: 9,
+      name: 'Franchise Playoffs',
+      date: 'June 2-6, 2026',
+      time: '7:30 PM EST',
+      prize: 'TBD',
+      teams: '8/8',
+      status: 'Upcoming',
+      type: 'Invite Only',
+      format: '5v5',
+      description: 'Top 8 teams compete for the franchise championship.',
+      image: '/images/playoffs.jpg',
+      notes: 'Top 8 teams qualify based on season performance.'
+    },
+    {
+      id: 10,
+      name: 'East Coast LAN',
+      date: 'June 12-14, 2026',
+      time: '7:00 PM EST',
+      prize: 'TBD',
+      teams: '0/32',
+      status: 'Upcoming',
+      type: 'LAN',
+      format: '5v5',
+      description: 'East Coast regional championship.',
+      image: '/images/east-coast-lan.jpg',
+      notes: 'Franchise Champion qualifies for Summer Championships.'
+    },
+    {
+      id: 11,
+      name: 'West Coast LAN',
+      date: 'July 10-12, 2026',
+      time: '7:00 PM PST',
+      prize: 'TBD',
+      teams: '0/32',
+      status: 'Upcoming',
+      type: 'LAN',
+      format: '5v5',
+      description: 'West Coast regional championship.',
+      image: '/images/west-coast-lan.jpg',
+      notes: 'Final LAN qualifier for Summer Championships.'
+    },
+    {
+      id: 12,
+      name: 'Summer Championships',
+      date: 'August 14-17, 2026',
+      time: '7:00 PM EST',
+      prize: 'TBD',
+      teams: '0/16',
+      status: 'Upcoming',
+      type: 'Championship',
+      format: '5v5',
+      description: 'Season finale featuring the best teams from the year.',
+      image: '/images/summer-championships.jpg',
+      notes: 'Invite-only: Franchise Champ + Open + LAN winners.'
+    }
+  ];
+
+  // No past tournaments yet - this will be updated as the season progresses
+  const pastTournaments = [];
 
   return (
-    <Box sx={{ bgcolor: 'background.default' }}>
+    <Box component="main" sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
       {/* Hero Section */}
       <Box sx={{
         position: 'relative',
@@ -349,7 +491,7 @@ const Tournament = () => {
               fontSize: { xs: '1.1rem', md: '1.25rem' }
             }}
           >
-            Compete in the most prestigious 2K Pro-Am tournament series with over $52,000 in cash prizes.
+            Compete in The Association franchise league for a chance to win part of the $52,000 prize pool. 
             Join the competition and prove you're the best in the world.
           </Typography>
           <Button 
@@ -379,10 +521,10 @@ const Tournament = () => {
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center',
-            mb: 3
+            mb: 4
           }}>
-            <Typography variant="h4" component="h2" sx={{ fontWeight: 600 }}>
-              Upcoming Tournaments
+            <Typography variant="h4" component="h2" sx={{ mb: 4, fontWeight: 700, color: 'text.primary' }}>
+              The Association Tournament Schedule
             </Typography>
             <Button 
               endIcon={<ArrowForward />}
@@ -396,336 +538,307 @@ const Tournament = () => {
             {upcomingTournaments.map((tournament) => (
               <Grid item key={tournament.id} xs={12} md={6} lg={4}>
                 <Grow in={true} timeout={500}>
-                  <Card 
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      transition: 'transform 0.3s, box-shadow 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: theme.shadows[8]
-                      },
-                      position: 'relative',
-                      overflow: 'hidden',
-                      borderRadius: 2
-                    }}
-                  >
-                    {tournament.featured && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 16,
-                          right: 16,
-                          bgcolor: 'secondary.main',
-                          color: 'secondary.contrastText',
-                          px: 1.5,
-                          py: 0.5,
-                          borderRadius: 1,
-                          display: 'flex',
-                          alignItems: 'center',
-                          zIndex: 1,
-                          boxShadow: 1
-                        }}
-                      >
-                        <Star fontSize="small" sx={{ mr: 0.5, fontSize: '1rem' }} />
-                        <Typography variant="caption" sx={{ fontWeight: 600, fontSize: '0.7rem' }}>
-                          Featured
-                        </Typography>
-                      </Box>
-                    )}
-                    <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="body1" sx={{ mb: 2, color: 'text.secondary' }}>
-                        {tournament.description}
-                      </Typography>
-                      <Grid container spacing={1} sx={{ mb: 2 }}>
-                        <Grid item xs={6} sm={3}>
-                          <Paper elevation={0} sx={{ p: 1.5, textAlign: 'center', borderRadius: 2, bgcolor: 'rgba(25, 118, 210, 0.05)' }}>
-                            <MonetizationOn color="primary" sx={{ mb: 0.5 }} />
-                            <Typography variant="caption" display="block" color="text.secondary">Prize Pool</Typography>
-                            <Typography variant="subtitle2" fontWeight="bold">{tournament.prize}</Typography>
-                          </Paper>
-                        </Grid>
-                        <Grid item xs={6} sm={3}>
-                          <Paper elevation={0} sx={{ p: 1.5, textAlign: 'center', borderRadius: 2, bgcolor: 'rgba(25, 118, 210, 0.05)' }}>
-                            <People color="primary" sx={{ mb: 0.5 }} />
-                            <Typography variant="caption" display="block" color="text.secondary">Format</Typography>
-                            <Typography variant="subtitle2" fontWeight="bold">{tournament.format}</Typography>
-                          </Paper>
-                        </Grid>
-                        <Grid item xs={6} sm={3}>
-                          <Paper elevation={0} sx={{ p: 1.5, textAlign: 'center', borderRadius: 2, bgcolor: 'rgba(25, 118, 210, 0.05)' }}>
-                            <EventAvailable color="primary" sx={{ mb: 0.5 }} />
-                            <Typography variant="caption" display="block" color="text.secondary">Type</Typography>
-                            <Typography variant="subtitle2" fontWeight="bold">{tournament.type}</Typography>
-                          </Paper>
-                        </Grid>
-                        <Grid item xs={6} sm={3}>
-                          <Paper elevation={0} sx={{ p: 1.5, textAlign: 'center', borderRadius: 2, bgcolor: 'rgba(25, 118, 210, 0.05)' }}>
-                            <Person color="primary" sx={{ mb: 0.5 }} />
-                            <Typography variant="caption" display="block" color="text.secondary">Entry</Typography>
-                            <Typography variant="subtitle2" fontWeight="bold">{tournament.entry}</Typography>
-                          </Paper>
-                        </Grid>
-                      </Grid>
-                    </Box>
-                    {/* Close Box for flexGrow: 1 above */}
-                    <Box sx={{ mt: 'auto' }}>
-                      <Button 
-                        variant="contained" 
-                        color="primary" 
-                        fullWidth
-                        disabled={tournament.status !== 'Registration Open'}
-                        endIcon={<ArrowForward />}
-                        size="large"
-                        sx={{
-                          py: 1.5,
-                          borderRadius: 2,
-                          textTransform: 'none',
-                          fontWeight: 'bold',
-                          '&:hover': {
-                            transform: 'translateY(-2px)',
-                            boxShadow: 3
-                          },
-                          transition: 'all 0.2s'
-                        }}
-                      >
-                        {tournament.status === 'Registration Open' 
-                          ? 'Register Now' 
-                          : 'View Details'}
-                      </Button>
-                    </Box>
-                  </Card>
+                  <div>
+                    <TournamentCard tournament={tournament} />
+                  </div>
                 </Grow>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Past Tournaments */}
+        <Box>
+          <Typography variant="h2" component="h1" sx={{ mb: 2, fontSize: { xs: '2rem', md: '3rem' }, fontWeight: 700, lineHeight: 1.1 }}>
+            The Association: Battle for $52K
+          </Typography>
+          
+          <Grid container spacing={3}>
+            {pastTournaments.map((tournament) => (
+              <Grid item key={tournament.id} xs={12} md={6} lg={4}>
+                <Card 
+                  elevation={0} 
+                  sx={{ 
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    transition: 'transform 0.2s',
+                    '&:hover': {
+                      transform: 'translateY(-4px)'
+                    }
+                  }}
+                >
+                  <Box sx={{ 
+                    height: '160px',
+                    position: 'relative',
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
+                      zIndex: 1
+                    }
+                  }}>
+                    <CardMedia
+                      component="img"
+                      image={tournament.image || '/images/tournament-default.jpg'}
+                      alt={tournament.name}
+                      sx={{ 
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                    <Box sx={{ 
+                      position: 'absolute',
+                      bottom: 16,
+                      left: 16,
+                      zIndex: 2,
+                      color: 'white'
+                    }}>
+                      <Chip 
+                        label="Completed"
+                        color="secondary"
+                        size="small"
+                        sx={{ 
+                          mb: 1,
+                          color: 'white',
+                          fontWeight: 600,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          fontSize: '0.7rem',
+                          '& .MuiChip-label': {
+                            px: 1
+                          }
+                        }}
+                      />
+                      <Typography variant="h6" component="h3" sx={{ 
+                        fontWeight: 700,
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                      }}>
+                        {tournament.name}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Typography variant="body2" color="text.secondary">
+                          Date
+                        </Typography>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {tournament.date}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2" color="text.secondary">
+                          Prize
+                        </Typography>
+                        <Typography variant="subtitle2" fontWeight={600} color="primary">
+                          {tournament.prize}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2" color="text.secondary">
+                          Winner
+                        </Typography>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {tournament.winner}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="body2" color="text.secondary">
+                          Runner-up
+                        </Typography>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {tournament.runnerUp}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  
+                  <CardActions sx={{ px: 2, pb: 2 }}>
+                    <Button 
+                      size="small" 
+                      color="primary"
+                      endIcon={<ArrowForward />}
+                      fullWidth
+                    >
+                      View Results
+                    </Button>
+                  </CardActions>
+                </Card>
               </Grid>
             ))}
           </Grid>
         </Box>
       </Container>
 
+      {/* Rules Section */}
       <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-        mt: 8,
-        mb: 3,
-        p: 2,
-        bgcolor: 'rgba(25, 118, 210, 0.04)',
-        borderRadius: 2,
-        borderLeft: `4px solid ${theme.palette.primary.main}`
+        bgcolor: 'background.paper',
+        py: 8,
+        mt: 8
       }}>
-        <Typography variant="h5" component="h3" sx={{ 
-          display: 'flex', 
-          alignItems: 'center',
-          fontWeight: 'bold',
-          m: 0
-        }}>
-          <MilitaryTech color="primary" sx={{ mr: 1.5, fontSize: '1.75rem' }} />
-          Past Tournaments
-        </Typography>
-        <Chip 
-          label={`${pastTournaments.length} Events`} 
-          color="default" 
-          variant="outlined"
-          size="small" />
-      </Box>
-
-      <Grid container spacing={3}>
-        {pastTournaments.map((tournament) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} key={tournament.id}>
-            <Card 
-              elevation={0}
-              sx={{
+        <Container maxWidth="xl">
+          <Typography 
+            variant="h4" 
+            component="h2" 
+            sx={{ 
+              mb: 6, 
+              textAlign: 'center',
+              fontWeight: 700
+            }}
+          >
+            Tournament Rules
+          </Typography>
+          
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6} lg={4}>
+              <Card elevation={0} sx={{ 
                 height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
                 borderRadius: 2,
-                overflow: 'hidden',
                 border: '1px solid',
                 borderColor: 'divider',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: theme.shadows[4]
-                }
-              }}
-            >
-              <Box sx={{ position: 'relative', height: '140px' }}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={tournament.image}
-                  alt={tournament.name}
-                  sx={{
-                    objectFit: 'cover',
-                    width: '100%',
-                    height: '100%'
-                  }}
-                />
-                <Box sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  p: 1.5,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)',
-                  color: 'white'
-                }}>
-                  <Typography variant="subtitle1" fontWeight="bold" noWrap>
-                    {tournament.name}
-                  </Typography>
-                  <Typography variant="caption" sx={{ opacity: 0.9 }}>
-                    {tournament.date}
-                  </Typography>
-                </Box>
-              </Box>
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Stack spacing={1.5}>
-                  <Box>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                      Winner
-                    </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <EmojiEvents sx={{ color: 'gold', mr: 1, fontSize: '1.1rem' }} />
-                      <Typography variant="body2" fontWeight="medium">
-                        {tournament.winner}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                      Prize
-                    </Typography>
-                    <Typography variant="body2" fontWeight="medium">
-                      {tournament.prize}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Chip label={`${pastTournaments.length} Events`} color="default" variant="outlined" size="small" />
-                  </Box>
-                  <Button 
-                    variant="outlined" 
-                    size="small" 
-                    endIcon={<ArrowForward fontSize="small" />}
-                    fullWidth
-                    sx={{ mt: 1 }}
-                  >
-                    View Results
-                  </Button>
-                </Stack>
-              </CardContent>
-            </Card>
+                p: 3
+              }}>
+                <Typography variant="h6" component="h3" sx={{ mb: 3, fontWeight: 600 }}>
+                  General Rules
+                </Typography>
+                <List disablePadding>
+                  {tournamentRules.map((rule, index) => (
+                    <ListItem key={index} disableGutters sx={{ py: 1 }}>
+                      <ListItemIcon sx={{ minWidth: 40, color: 'primary.main' }}>
+                        {rule.icon}
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={rule.text}
+                        primaryTypographyProps={{ variant: 'body2' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Card>
+            </Grid>
+            
+            <Grid item xs={12} md={6} lg={4}>
+              <Card elevation={0} sx={{ 
+                height: '100%',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+                p: 3
+              }}>
+                <Typography variant="h6" component="h3" sx={{ mb: 3, fontWeight: 600 }}>
+                  Prizes
+                </Typography>
+                <List disablePadding>
+                  {[
+                    '1st Place: 60% of prize pool',
+                    '2nd Place: 25% of prize pool',
+                    '3rd Place: 10% of prize pool',
+                    '4th Place: 5% of prize pool'
+                  ].map((prize, index) => (
+                    <ListItem key={index} disableGutters sx={{ py: 1 }}>
+                      <ListItemIcon sx={{ minWidth: 40, color: 'primary.main' }}>
+                        <MonetizationOn />
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={prize}
+                        primaryTypographyProps={{ variant: 'body2' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Card>
+            </Grid>
+            
+            <Grid item xs={12} lg={4}>
+              <Card elevation={0} sx={{ 
+                height: '100%',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+                p: 3
+              }}>
+                <Typography variant="h6" component="h3" sx={{ mb: 3, fontWeight: 600 }}>
+                  How to Join
+                </Typography>
+                <List disablePadding>
+                  {[
+                    '1. Create an account on our platform',
+                    '2. Form or join a team',
+                    '3. Register for an upcoming tournament',
+                    '4. Pay the entry fee (if applicable)',
+                    '5. Check in before the tournament starts',
+                    '6. Compete and win!'
+                  ].map((step, index) => (
+                    <ListItem key={index} disableGutters sx={{ py: 1 }}>
+                      <ListItemIcon sx={{ minWidth: 40, color: 'primary.main' }}>
+                        <CheckCircle color="primary" />
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={step}
+                        primaryTypographyProps={{ variant: 'body2' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Card>
+            </Grid>
           </Grid>
-        ))}
-      </Grid>
+        </Container>
+      </Box>
 
-      {/* Tournament Info Sidebar */}
-      <Grid item xs={12} lg={4}>
-        <Card elevation={0} sx={{ 
-          mb: 3, 
-          borderRadius: 2,
-          border: '1px solid',
-          borderColor: 'divider',
-          overflow: 'hidden'
-        }}>
-          <Box sx={{
-            p: 2,
-            bgcolor: 'primary.main',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'center'
-          }}>
-            <EmojiEvents sx={{ mr: 1.5, fontSize: '1.5rem' }} />
-            <Typography variant="h6" component="h3" sx={{ m: 0, fontWeight: 'bold' }}>
-              Tournament Rules
-            </Typography>
-          </Box>
-          <CardContent>
-            <List disablePadding>
-              {tournamentRules.map((rule, index) => (
-                <ListItem 
-                  key={index} 
-                  sx={{ 
-                    px: 0,
-                    py: 1.5,
-                    borderBottom: index < tournamentRules.length - 1 ? '1px dashed' : 'none',
-                    borderColor: 'divider',
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    '&:hover': {
-                      backgroundColor: 'action.hover'
-                    }
-                  }}
-                >
-                  <ListItemIcon sx={{ minWidth: 32, color: 'primary.main' }}>
-                    <CheckCircle fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary={
-                      <Typography variant="body2">
-                        {rule.text}
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-        </Card>
-      </Grid>
-      
-      {/* Quick Links Sidebar */}
-      <Grid item xs={12} lg={4}>
-        <Card elevation={0} sx={{ 
-          mb: 3, 
-          borderRadius: 2,
-          border: '1px solid',
-          borderColor: 'divider',
-          overflow: 'hidden'
-        }}>
-          <Box sx={{
-            p: 2,
-            bgcolor: 'primary.main',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'center'
-          }}>
-            <EmojiEvents sx={{ mr: 1.5, fontSize: '1.5rem' }} />
-            <Typography variant="h6" component="h3" sx={{ m: 0, fontWeight: 'bold' }}>
-              Quick Links
-            </Typography>
-          </Box>
-          <List disablePadding>
-            {quickLinks.map((link, index) => (
-              <ListItem 
-                button 
-                key={index}
-                component="a"
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{ 
-                  px: 3,
-                  py: 2,
-                  borderBottom: index < quickLinks.length - 1 ? '1px solid' : 'none',
-                  borderColor: 'divider',
-                  '&:hover': {
-                    backgroundColor: 'action.hover'
-                  }
-                }}
-              >
-                <ListItemIcon sx={{ color: 'primary.main' }}>
-                  {React.cloneElement(link.icon, { fontSize: 'small' })}
-                </ListItemIcon>
-                <ListItemText primary={link.text} />
-                <ArrowForward color="action" fontSize="small" />
-              </ListItem>
-            ))}
-          </List>
-        </Card>
-      </Grid>
-    </Container>
-  </Box>
+      {/* CTA Section */}
+      <Box sx={{ 
+        bgcolor: 'primary.main',
+        color: 'primary.contrastText',
+        py: 8,
+        textAlign: 'center'
+      }}>
+        <Container maxWidth="md">
+          <Typography 
+            variant="h4" 
+            component="h2" 
+            sx={{ 
+              mb: 4, 
+              fontWeight: 700
+            }}
+          >
+            Ready to Join The Association?
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 4, opacity: 0.9 }}>
+            Register now for the 2025-2026 season and compete for your share of the $52,000 prize pool.
+          </Typography>
+          <Button 
+            variant="contained" 
+            color="secondary" 
+            size="large"
+            endIcon={<ArrowForward />}
+            sx={{
+              px: 6,
+              py: 1.5,
+              borderRadius: 2,
+              fontWeight: 600,
+              textTransform: 'none',
+              fontSize: '1.1rem',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)'
+            }}
+          >
+            Register Now
+          </Button>
+        </Container>
+      </Box>
+    </Box>
   );
 };
 
